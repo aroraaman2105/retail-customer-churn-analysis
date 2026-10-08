@@ -1,214 +1,130 @@
 # Retail Customer Churn Analysis
 
-## Project Overview
+An end-to-end data science project for identifying retail customers at risk of churn. It explores transaction data, builds a customer-level churn model, and presents churn patterns and predictions in an interactive Streamlit dashboard.
 
-This project focuses on building a machine learning model to predict customer churn for a retail business, identifying key factors influencing churn, and translating these insights into actionable retention strategies. Leveraging a real-world transactional dataset (Online Retail II from Kaggle), this project demonstrates a comprehensive data science workflow from data acquisition and cleaning to feature engineering, advanced machine learning modeling (Gradient Boosting), and interactive visualization using Streamlit.
+## Why this project?
 
-The primary objective is to empower business stakeholders with a data-driven tool to proactively identify customers at high risk of churning and understand why they are churning, enabling targeted interventions to improve customer retention and lifetime value.
+Retail teams can use early churn-risk signals to prioritize customer outreach and tailor retention offers. This project demonstrates one way to turn purchase history into those signals.
 
----
+## Dataset and churn definition
 
-## Problem Statement
+The project uses the [Online Retail II dataset](https://www.kaggle.com/datasets/mashlyn/online-retail-ii-uci), a record of purchases made by a UK-based online retailer between December 2009 and December 2011. The data includes invoice, product, quantity, price, date, customer, and country information.
 
-Customer churn is a significant challenge for retail businesses, directly impacting revenue and growth. Identifying at-risk customers early allows businesses to implement targeted retention campaigns (e.g., personalized offers, improved customer service) before customers are lost. This project addresses this by:
+The source dataset does not include a churn label. This project defines churn as customer inactivity during a three-month observation window after the analysis period.
 
-- Developing a predictive model for customer churn.
-- Uncovering the most influential behavioral and transactional factors that contribute to churn.
-- Providing an interactive platform for stakeholders to explore churn insights and identify at-risk customers.
+The raw and processed CSV files used by the project are included under `data/`. If you replace or download the source data, keep it in `data/raw/` and confirm that it matches the format expected by the notebooks.
 
----
+## Workflow
 
-## Dataset
+1. **Explore and clean:** Inspect transactions, remove or handle invalid records, and explore purchasing patterns.
+2. **Prepare customer features:** Build customer-level measures such as Recency, Frequency, Monetary value, Tenure, and country group.
+3. **Train and evaluate:** Compare classification models and evaluate churn predictions using standard classification metrics.
+4. **Explore results:** Use the notebooks and Streamlit dashboard to examine churn rates, model drivers, and customers flagged as at risk.
 
-- **Source**: [Online Retail II - Kaggle](https://www.kaggle.com/datasets/mashlyn/online-retail-ii-uci)
-- **Description**: A transactional dataset containing all purchases made by customers of a UK-based online retail store. It spans a period from December 2009 to December 2011.
-- **Key Columns**: `InvoiceNo`, `StockCode`, `Description`, `Quantity`, `InvoiceDate`, `Price`, `CustomerID`, `Country`.
+## Project structure
 
-> **Note on Churn Definition**:  
-> As the dataset does not contain an explicit churn label, churn was defined based on customer inactivity. A customer was considered churned if they had no transactions within a 3-month churn observation window following their last activity in the analysis period.
-
----
-
-## Project Phases & Methodology
-
-### 1. Project Planning & Setup
-- Defined project scope, objectives, initial tools, and established the repository structure.
-
-### 2. Data Acquisition & Understanding
-- Acquired the Online Retail II dataset.
-- Performed initial data loading, cleaning (handling missing `CustomerID`s, invalid quantities/prices, cancelled orders).
-- Conducted comprehensive Exploratory Data Analysis (EDA) to understand data distributions and temporal trends.
-
-### 3. Data Preprocessing & Feature Engineering
-- Defined a 3-month churn window and an observation period.
-- Engineered crucial customer-level features:
-  - **RFM (Recency, Frequency, Monetary)**: Calculated based on customer activity within the observation period.
-  - **Tenure**: Days since the customer's first purchase.
-- Prepared the `Country` feature (grouping top countries, one-hot encoding).
-- Created the binary `is_churned` target variable.
-
-### 4. Modeling & Evaluation
-- Split the feature-engineered data into training and testing sets, stratifying by churn status.
-- Trained and evaluated multiple classification models:
-  - Logistic Regression
-  - Random Forest
-  - Gradient Boosting
-- Selected Gradient Boosting Classifier for its superior performance (highest ROC-AUC).
-- Performed hyperparameter tuning (GridSearchCV) to optimize ROC-AUC.
-- Evaluated the final model using metrics:
-  - Accuracy
-  - Precision
-  - Recall
-  - F1-Score
-  - ROC-AUC
-  - Confusion Matrix
-- Identified Feature Importances to understand key churn drivers.
-
-### 5. Visualization & Communication
-- Developed an interactive **Streamlit** dashboard to visualize churn insights:
-  - Displays overall churn rates, churn by country.
-  - Highlights top churn drivers.
-  - Allows identifying at-risk customers based on an adjustable probability threshold.
-
----
-
-## Technologies Used
-
-- **Programming Language**: Python 3.x
-- **Data Manipulation & Analysis**: `pandas`, `numpy`
-- **Machine Learning**: `scikit-learn` (`LogisticRegression`, `RandomForestClassifier`, `GradientBoostingClassifier`, `GridSearchCV`, `train_test_split`, `metrics`)
-- **Model Persistence**: `joblib`
-- **Visualization**: `matplotlib`, `seaborn`, `plotly`, `streamlit`
-- **Version Control**: Git, GitHub
-- **Development Environment**: Jupyter Notebook
-
----
-
-## Results & Insights (Example - UPDATE WITH YOUR ACTUAL VALUES)
-
-The Tuned Gradient Boosting Classifier was chosen as the final model due to its robust performance, achieving excellent discriminative power for churn prediction.
-
-**Key Model Performance on Test Set**:
-
-- **Accuracy**: 0.7419
-- **Precision**: 0.7815
-- **Recall**: 0.7553
-- **F1-Score**: 0.7682
-- **ROC-AUC**: 0.8107
-- **Confusion Matrix**: `[[415 158], [183 565]]`
-
-**Top Churn Drivers (from Gradient Boosting Feature Importance):**
-- **Recency** – Customers who haven't purchased recently are at higher risk.
-- **Monetary** – Lower spending customers might be more prone to churn.
-- **Frequency** – Less frequent buyers have higher churn probability.
-- **Tenure** – Newer customers might churn faster, or very old customers might become dormant.
-- **Country_Germany** – Specific country dynamics can influence churn.
-
----
-
-## Actionable Business Recommendations
-
-- **Targeted Re-engagement Campaigns**: Focus on customers with high Recency. Personalized offers or loyalty program reminders can encourage return visits.
-- **Value-Based Retention**: Implement strategies for low Monetary value customers, such as bundled offers or loyalty discounts to increase their average basket size.
-- **Onboarding for New Customers**: Pay close attention to customers with low Tenure (newer customers) to ensure positive initial experiences.
-- **Geographic Specific Campaigns**: Analyze churn patterns in specific countries (e.g., Country_Germany) to tailor retention efforts.
-- **Proactive Customer Service**: Use predictions to initiate outreach from support teams for high-risk customers.
-
----
-
-## How to Run the Project
-
-### Clone the Repository
-```bash
-git clone https://github.com/YourUsername/Retail-Customer-Churn-Analysis.git
-cd Retail-Customer-Churn-Analysis
+```text
+.
+├── data/
+│   ├── raw/                 # Source transaction data
+│   └── processed/           # Cleaned data, customer features, and predictions
+├── documentation/           # Notes covering the project phases
+├── models/                  # Saved churn model
+├── notebooks/               # Analysis, feature engineering, and modeling workflow
+├── src/
+│   └── visualization_app.py # Streamlit dashboard
+├── requirements.txt
+└── README.md
 ```
 
-## Setup Instructions
+## Tools
 
-### Create a Virtual Environment (Recommended)
+- Python
+- pandas and NumPy
+- scikit-learn and joblib
+- Matplotlib, Seaborn, and Plotly
+- Jupyter notebooks and Streamlit
+
+## Get started
+
+Clone the repository and open a terminal in its folder:
 
 ```bash
-python -m venv venv
-
-# On Windows:
-.env\Scriptsctivate
-
-# On macOS/Linux:
-source venv/bin/activate
+git clone https://github.com/aroraaman2105/retail-customer-churn-analysis.git
+cd retail-customer-churn-analysis
 ```
 
----
+Create and activate a virtual environment:
 
-### Install Dependencies
+```bash
+python -m venv .venv
+```
+
+On Windows:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+On macOS or Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+Install the project dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-### Download Raw Data
-
-1. Go to the Kaggle dataset: **Online Retail II UCI**  
-2. Download the `online_retail_II.zip` file.  
-3. Extract `online_retail_II.xlsx` and place it in the `data/raw/` directory.
-
----
-
-### Run Jupyter Notebooks (Sequential Order)
-
-Launch Jupyter Notebook or JupyterLab from the project root directory:
+To run the notebooks, launch Jupyter from the project root. If it is not installed in your environment, install it first with `pip install jupyterlab`.
 
 ```bash
-jupyter notebook
+jupyter lab
 ```
 
-Navigate to the `notebooks/` folder and run the notebooks in the following order:
+Run the notebooks in workflow order:
 
-1. `eda.ipynb`
-2. `feature_engineering.ipynb`
-3. `model_training_and_evaluation.ipynb`
-4. `dashboard_insights.ipynb`  
-   *(This will create `customer_churn_predictions.csv`)*
+1. `notebooks/eda.ipynb`
+2. `notebooks/feature_engineering.ipynb`
+3. `notebooks/model_training_and_evaluvation.ipynb`
+4. `notebooks/dashboard_insights.ipynb`
 
----
+The dashboard notebook generates customer predictions. The Streamlit app also expects the processed prediction data and saved model in `data/processed/` and `models/`.
 
-### Run the Streamlit Dashboard
-
-Open your terminal in the project’s root directory and run:
+Start the dashboard from the project root:
 
 ```bash
 streamlit run src/visualization_app.py
 ```
 
-This will open the interactive dashboard in your web browser.
+## Model results and interpretation
 
----
+The existing project notes report the following test-set results for the selected Gradient Boosting classifier:
 
-## Project Structure
+| Metric | Score |
+|---|---:|
+| Accuracy | 0.7419 |
+| Precision | 0.7815 |
+| Recall | 0.7553 |
+| F1 score | 0.7682 |
+| ROC-AUC | 0.8107 |
 
-```
-Retail-Customer-Churn-Analysis/
-├── .gitignore               # Specifies intentionally untracked files to ignore.
-├── README.md                # This file: Project description, setup, usage.
-├── requirements.txt         # Lists all Python package dependencies.
-├── notebooks/               # Jupyter notebooks documenting the project workflow.
-│   ├── eda.ipynb
-│   ├── feature_engineering.ipynb
-│   ├── model_training_and_evaluation.ipynb
-│   └── dashboard_insights.ipynb
-├── src/                     # Modular Python scripts for reusable functions and Streamlit app.
-│   └── visualization_app.py # The Streamlit interactive dashboard.
-├── models/                  # Directory to store trained machine learning models (e.g., best_churn_model.joblib).
-├── data/                    # Directory for storing raw and processed datasets.
-│   ├── raw/                 # Contains the original 'online_retail_II.csv' dataset.
-│   └── processed/           # Contains cleaned, feature-engineered, and predicted datasets.
-├── documentation/           # Detailed documentation for each project phase.
-    ├── phase1.md
-    ├── phase2.md
-    ├── phase3.md
-    ├── phase4.md
-    └── phase5.md
-```
+The recorded confusion matrix is `[[415, 158], [183, 565]]`. Treat these figures as the results documented for the current model; rerun the modeling notebook to validate them if the data or training workflow changes.
 
+The project examines Recency, Monetary value, Frequency, Tenure, and country-related features as potential churn signals. These are associations in the model, not proof that any one factor causes churn.
+
+## Possible next steps
+
+- Compare additional models and feature-engineering approaches.
+- Explore customer segments and time-based purchasing patterns.
+- Test retention strategies and improve dashboard filtering.
+- Consider deploying predictions through a service or scheduled workflow.
+
+## Project contact
+
+- **Name:** Sanjay Krishna MV
+- **GitHub:** [SANJAY-KRISHNA-MV](https://github.com/SANJAY-KRISHNA-MV)
+- **LinkedIn:** [sanjay-krishna-mv](https://www.linkedin.com/in/sanjay-krishna-mv/)
+- **Email:** sanjaymvkrishna@gmail.com
