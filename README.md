@@ -115,16 +115,3 @@ The recorded confusion matrix is `[[415, 158], [183, 565]]`. Treat these figures
 
 The project examines Recency, Monetary value, Frequency, Tenure, and country-related features as potential churn signals. These are associations in the model, not proof that any one factor causes churn.
 
-## Possible next steps
-
-- Compare additional models and feature-engineering approaches.
-- Explore customer segments and time-based purchasing patterns.
-- Test retention strategies and improve dashboard filtering.
-- Consider deploying predictions through a service or scheduled workflow.
-
-## Project contact
-
-- **Name:** Sanjay Krishna MV
-- **GitHub:** [SANJAY-KRISHNA-MV](https://github.com/SANJAY-KRISHNA-MV)
-- **LinkedIn:** [sanjay-krishna-mv](https://www.linkedin.com/in/sanjay-krishna-mv/)
-- **Email:** sanjaymvkrishna@gmail.com
