@@ -212,23 +212,3 @@ Retail-Customer-Churn-Analysis/
     └── phase5.md
 ```
 
----
-
-## Future Work / Stretch Goals
-
-- **Advanced Feature Engineering**: Explore complex features like product categories purchased, average time between purchases, or sentiment from customer reviews (if available).
-- **More Sophisticated Modeling**: Try models such as XGBoost, LightGBM, or CatBoost.
-- **Model Deployment**: Simulate deploying the model as an API (e.g., Flask/FastAPI) for real-time predictions.
-- **Customer Segmentation**: Use clustering for deeper customer insights and targeted strategies.
-- **A/B Testing Framework**: Design a framework for testing different retention strategies.
-- **Time Series Forecasting**: Use customer activity patterns to forecast future engagement.
-- **Streamlit Enhancements**: Add filters, drill-downs, and segmented views for better interactivity.
-
----
-
-## Contact
-
-- **Your Name**: Sanjay Krishna MV  
-- **GitHub**: https://github.com/SANJAY-KRISHNA-MV  
-- **LinkedIn**: https://www.linkedin.com/in/sanjay-krishna-mv/
-- **Email**: sanjaymvkrishna@gmail.com
