@@ -1,6 +1,6 @@
 # Retail Customer Churn Analysis
 
-An end-to-end data science project for identifying retail customers at risk of churn. It explores transaction data, builds a customer-level churn model, and presents churn patterns and predictions in an interactive Streamlit dashboard.
+An end-to-end data science project for identifying retail customers at risk of churn. It explores transaction data, builds a customer-level churn model, and presents churn patterns and predictions.
 
 ## Why this project?
 
